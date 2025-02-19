@@ -1,0 +1,678 @@
+{% extends 'base.html' %} {% load static %} {% block content %} 
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Глоссарий терминов</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+ 
+body {
+	margin: 0;
+	padding: 0;
+	line-height: 1.5;
+}
+ 
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9fd1a48f-7f9d-4a6c-a620-307cdf90580d" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📕</span></div><h1 class="page-title">Глоссарий терминов</h1><p class="page-description"></p></header><div class="page-body"><p id="1719b9cb-f62f-80b3-b2fd-d7bedf1be94c" class="">В данном разделе приведены основные термины и определения, которые используются в области информационной безопасности. Эти термины помогут лучше понять ключевые концепции и методологии обеспечения безопасности информационных систем.</p><hr id="1719b9cb-f62f-8068-9947-eaf5a4fbe6cb"/><h2 id="1719b9cb-f62f-80d5-a104-c5d76084b3f9" class="">A</h2><p id="1719b9cb-f62f-8021-a84e-c3ed6d111cec" class=""><strong>Аутентификация (Authentication)</strong> – процесс подтверждения личности пользователя или устройства, обычно через логин и пароль, биометрические данные или многофакторную аутентификацию.</p><p id="1719b9cb-f62f-80a0-b372-e127c52d8d39" class=""><strong>Антивирусная защита (Antivirus Protection)</strong> – технологии и программы, предназначенные для защиты от вирусов, троянских программ, шпионского ПО и других вредоносных программ.</p><hr id="1719b9cb-f62f-8082-9cbf-e21d063eac99"/><h2 id="1719b9cb-f62f-804e-a0cb-ecd17673070a" class="">B</h2><p id="1719b9cb-f62f-80db-adb6-ca2659671d26" class=""><strong>Брандмауэр (Firewall)</strong> – сеть или устройство, предназначенное для мониторинга и контроля входящего и исходящего сетевого трафика, с целью блокировки нежелательных соединений.</p><p id="1719b9cb-f62f-802d-b6bb-d3b4af41c114" class=""><strong>Безопасность данных (Data Security)</strong> – защита данных от несанкционированного доступа, модификации, утраты или уничтожения с помощью различных технологий и методов.</p><p id="1719b9cb-f62f-800a-b24c-f119926077f3" class=""><strong>Брутфорс-атака (Brute-Force Attack)</strong> – метод взлома пароля или шифрования путем подбора всех возможных комбинаций, пока не будет найден правильный вариант.</p><hr id="1719b9cb-f62f-80bf-8470-c35f5e024d81"/><h2 id="1719b9cb-f62f-803e-8f5e-cbbbf9c1e572" class="">C</h2><p id="1719b9cb-f62f-8037-8d08-ecd217836277" class=""><strong>Цифровая подпись (Digital Signature)</strong> – криптографический механизм, позволяющий удостоверить подлинность сообщений и документов, а также обеспечить их целостность.</p><p id="1719b9cb-f62f-809a-bc8b-d14967d5b7b0" class=""><strong>Человеческий фактор (Human Factor)</strong> – термин, описывающий ошибки, недоразумения или преднамеренные действия людей, которые могут стать причиной угроз безопасности информационных систем.</p><p id="1719b9cb-f62f-8001-81c2-eaae72542aba" class=""><strong>Контроль доступа (Access Control)</strong> – механизмы и политики, направленные на управление правами доступа пользователей или устройств к данным и системам.</p><hr id="1719b9cb-f62f-8034-b126-ea91596fa7f4"/><h2 id="1719b9cb-f62f-801d-b159-c499c0d266e0" class="">D</h2><p id="1719b9cb-f62f-8081-8684-da4af21a3b8b" class=""><strong>DDoS-атака (Distributed Denial of Service Attack)</strong> – атака на систему, которая заключается в создании искусственного трафика, направленного на перегрузку серверов или сетевой инфраструктуры, с целью их недоступности.</p><p id="1719b9cb-f62f-807b-b105-cf44e6815b5e" class=""><strong>Доступность (Availability)</strong> – одно из требований безопасности, которое заключается в обеспечении постоянного и бесперебойного доступа пользователей к информации и системам.</p><hr id="1719b9cb-f62f-80ab-af5a-e3d903fbcf58"/><h2 id="1719b9cb-f62f-8074-981e-f10b05c08db2" class="">E</h2><p id="1719b9cb-f62f-80e1-bdac-c4cf752d8c64" class=""><strong>Этапы инцидента безопасности (Incident Lifecycle)</strong> – последовательность шагов, которые предпринимаются для выявления, реагирования, анализа и ликвидации инцидента безопасности.</p><p id="1719b9cb-f62f-8047-b56b-faa3614474d0" class=""><strong>Эксплойт (Exploit)</strong> – программа или скрипт, использующий уязвимость в системе с целью выполнения атакующих действий.</p><hr id="1719b9cb-f62f-8042-95d6-e1887bfe6798"/><h2 id="1719b9cb-f62f-80b3-acb0-fbe2ea475c41" class="">F</h2><p id="1719b9cb-f62f-80a2-8ba1-cc144ff5e770" class=""><strong>Фишинг (Phishing)</strong> – форма социальной инженерии, при которой злоумышленники пытаются обманом заставить пользователя раскрыть личные данные, такие как пароли и номера кредитных карт.</p><p id="1719b9cb-f62f-800e-a675-d519ed30bfc0" class=""><strong>Фаервол (Firewall)</strong> – система, которая фильтрует сетевой трафик, защищая компьютер или сеть от несанкционированных попыток доступа или атак.</p><hr id="1719b9cb-f62f-80af-be53-e9c3c42f3a9f"/><h2 id="1719b9cb-f62f-8070-bfa6-ffe7b6f63460" class="">G</h2><p id="1719b9cb-f62f-800f-adde-dfa46f1ea911" class=""><strong>Гибридное шифрование (Hybrid Encryption)</strong> – метод, использующий как симметричное, так и асимметричное шифрование для обеспечения безопасности данных.</p><hr id="1719b9cb-f62f-80dd-b6b4-ccec023f96c7"/><h2 id="1719b9cb-f62f-803f-81c8-e07ce205112f" class="">H</h2><p id="1719b9cb-f62f-80b1-b257-cc76c2f22134" class=""><strong>Хеш-функция (Hash Function)</strong> – математическая функция, преобразующая данные произвольной длины в строку фиксированной длины, которая используется для проверки целостности данных.</p><p id="1719b9cb-f62f-804c-911a-e84ebe87321c" class=""><strong>Хакер (Hacker)</strong> – человек, который использует свои знания для поиска и эксплуатации уязвимостей в системах и приложениях, часто с целью обхода безопасности.</p><hr id="1719b9cb-f62f-8068-956b-e2c0ea69a54e"/><h2 id="1719b9cb-f62f-80b9-8c77-c85a5ac6cb67" class="">I</h2><p id="1719b9cb-f62f-8067-bb4c-f09d9cc3d5c9" class=""><strong>Инцидент безопасности (Security Incident)</strong> – любое событие или действие, которое нарушает или угрожает нарушить безопасность информационной системы или ее компонентов.</p><p id="1719b9cb-f62f-80e6-b73a-dd4ec6207ab8" class=""><strong>Интрузия (Intrusion)</strong> – несанкционированный доступ или вмешательство в компьютерную систему или сеть.</p><p id="1719b9cb-f62f-8048-823a-c58be425d8d5" class=""><strong>Информационная безопасность (Information Security)</strong> – защита информации от угроз, таких как несанкционированный доступ, утечка, уничтожение, повреждение или модификация.</p><hr id="1719b9cb-f62f-80c8-8ffc-eb327f84e086"/><h2 id="1719b9cb-f62f-8032-b199-d50229c07e29" class="">J</h2><p id="1719b9cb-f62f-80ca-9e36-cd2212785ca9" class=""><strong>JWT (JSON Web Token)</strong> – стандарт открытого токена для безопасной передачи информации между сторонами как объект JSON, обеспечивающий подтверждение подлинности и целостности данных.</p><hr id="1719b9cb-f62f-807c-9b7e-e3cb982d9c8a"/><h2 id="1719b9cb-f62f-805a-8025-d445167d2d96" class="">K</h2><p id="1719b9cb-f62f-8029-9347-ff1ef6590d86" class=""><strong>Криптография (Cryptography)</strong> – наука о методах защиты данных с помощью алгоритмов шифрования, а также обеспечения их конфиденциальности, целостности и подлинности.</p><p id="1719b9cb-f62f-8022-a4a1-d779851dfd29" class=""><strong>Ключ шифрования (Encryption Key)</strong> – секретная информация, используемая для выполнения операций шифрования и дешифрования.</p><hr id="1719b9cb-f62f-80a7-8119-d9b0b0b873ff"/><h2 id="1719b9cb-f62f-8072-8ec3-e3d7897f228c" class="">L</h2><p id="1719b9cb-f62f-8066-b78d-d8b048c06304" class=""><strong>Логирование (Logging)</strong> – процесс записи действий и событий, происходящих в системе, с целью мониторинга, анализа и устранения потенциальных угроз безопасности.</p><hr id="1719b9cb-f62f-8091-999e-dfe9e8180086"/><h2 id="1719b9cb-f62f-8071-8896-f8aa52d4583a" class="">M</h2><p id="1719b9cb-f62f-8086-b269-cbba6e89288f" class=""><strong>Многофакторная аутентификация (MFA)</strong> – метод аутентификации, который требует несколько видов подтверждения, например, пароль и биометрические данные или одноразовый код, отправляемый на мобильное устройство.</p><p id="1719b9cb-f62f-8035-90a8-f2501e3574e6" class=""><strong>Малварь (Malware)</strong> – вредоносное программное обеспечение, предназначенное для выполнения нежелательных действий на компьютере или в сети, таких как кража данных или разрушение информации.</p><hr id="1719b9cb-f62f-80c4-897d-d875d3ddca45"/><h2 id="1719b9cb-f62f-8015-8bef-f77485ab816d" class="">N</h2><p id="1719b9cb-f62f-80ff-8f10-f5313a7bfa1b" class=""><strong>Нарушение безопасности (Breach of Security)</strong> – событие, при котором информация была получена, изменена или уничтожена без разрешения.</p><p id="1719b9cb-f62f-8047-a263-c2c2211cfbc6" class=""><strong>Неавторизованный доступ (Unauthorized Access)</strong> – доступ к системам или данным, который осуществляется без разрешения владельца системы.</p><hr id="1719b9cb-f62f-80bb-8bdd-c891e8f48037"/><h2 id="1719b9cb-f62f-800c-8d3c-e529fd5e9ab8" class="">O</h2><p id="1719b9cb-f62f-80c2-a250-ff26e2b023bd" class=""><strong>Операционная система (Operating System)</strong> – программное обеспечение, которое управляет аппаратными и программными ресурсами компьютера или устройства и обеспечивает выполнение программ.</p><p id="1719b9cb-f62f-8094-8d58-c655f1cf2068" class=""><strong>Обнаружение вторжений (Intrusion Detection)</strong> – система или процесс мониторинга и анализа активности в сети или системе для выявления подозрительных или вредоносных действий.</p><hr id="1719b9cb-f62f-8079-8629-e02378a20eaa"/><h2 id="1719b9cb-f62f-80d1-969c-f973151f0909" class="">P</h2><p id="1719b9cb-f62f-8059-8078-cba55972c43d" class=""><strong>Патч (Patch)</strong> – исправление программного обеспечения для устранения уязвимостей, багов или других проблем безопасности.</p><p id="1719b9cb-f62f-80ca-823d-d2ca6e874ef4" class=""><strong>Пенетестация (Penetration Testing)</strong> – метод тестирования безопасности, заключающийся в имитации атак на систему с целью выявления уязвимостей.</p><p id="1719b9cb-f62f-809b-94c6-cc02321bdc82" class=""><strong>Параметризация SQL-запросов (SQL Injection Protection)</strong> – методы предотвращения атак на базе данных, в частности через уязвимости в SQL-запросах.</p><hr id="1719b9cb-f62f-80d6-bd1b-d3a726ab9d6c"/><h2 id="1719b9cb-f62f-8024-b781-c3ca212ed62b" class="">Q</h2><p id="1719b9cb-f62f-80d6-9d75-f5bf83bbd5fd" class=""><strong>Качество обслуживания (Quality of Service, QoS)</strong> – управление трафиком, чтобы обеспечить приоритет важным или критическим данным в сети.</p><hr id="1719b9cb-f62f-804f-bd37-d1b6958a818a"/><h2 id="1719b9cb-f62f-8050-ada8-c95697c9a493" class="">R</h2><p id="1719b9cb-f62f-8043-a4f0-c1be795adadc" class=""><strong>Реакция на инцидент (Incident Response)</strong> – процесс действий по обнаружению, устранению и анализу инцидентов безопасности.</p><p id="1719b9cb-f62f-80bf-82ad-ca7a73f1e372" class=""><strong>Резервное копирование (Backup)</strong> – создание копий данных для обеспечения их сохранности в случае потери или повреждения исходных данных.</p><hr id="1719b9cb-f62f-8080-9d55-f01ae8fdab6e"/><h2 id="1719b9cb-f62f-804a-b461-c9918af9b047" class="">S</h2><p id="1719b9cb-f62f-800d-b456-ebd5c5eb6058" class=""><strong>Сетевая безопасность (Network Security)</strong> – меры и технологии, направленные на защиту компьютерных сетей от внешних и внутренних угроз.</p><p id="1719b9cb-f62f-80b3-a694-e11c116495e5" class=""><strong>Социальная инженерия (Social Engineering)</strong> – манипуляции людьми для получения конфиденциальной информации или доступа к системам, используя психологические уловки.</p><p id="1719b9cb-f62f-80b5-ae72-ea3dab2e0476" class=""><strong>Системы обнаружения и предотвращения вторжений (IDS/IPS)</strong> – системы, предназначенные для мониторинга и анализа сетевого трафика с целью обнаружения и предотвращения атак.</p><hr id="1719b9cb-f62f-80cd-9363-cc4e3f12f11b"/><h2 id="1719b9cb-f62f-80a9-be83-eed7e77d2a2e" class="">T</h2><p id="1719b9cb-f62f-80ae-89f5-d7086ab00312" class=""><strong>Троянский вирус (Trojan Horse)</strong> – вредоносная программа, которая маскируется под полезное приложение и может нанести вред системе, предоставив злоумышленникам доступ.</p><p id="1719b9cb-f62f-80f6-b7e0-cdf320f5bbf6" class=""><strong>Тестирование на уязвимости (Vulnerability Testing)</strong> – процесс поиска уязвимостей в программном обеспечении или системе для устранения потенциальных рисков.</p><hr id="1719b9cb-f62f-8025-8202-db6c104ea0d7"/><h2 id="1719b9cb-f62f-80f8-be7c-cabd01b1351d" class="">U</h2><p id="1719b9cb-f62f-8045-927a-f7091519af63" class=""><strong>Уязвимость (Vulnerability)</strong> – слабое место в системе или приложении, которое может быть использовано для атаки.</p><hr id="1719b9cb-f62f-803c-bcd1-e2c26b9c58c1"/><h2 id="1719b9cb-f62f-8004-8a32-f2febcb13f81" class="">V</h2><p id="1719b9cb-f62f-8091-a991-c19c3b53efc6" class=""><strong>Вредоносное ПО (Malware)</strong> – программное обеспечение, предназначенное для выполнения вредоносных действий на компьютере или устройстве.</p><p id="1719b9cb-f62f-80e7-a74d-e02588e48d50" class=""><strong>Виртуальная частная сеть (VPN)</strong> – технология, создающая защищенное соединение между устройствами через интернет, чтобы обеспечить безопасность и конфиденциальность.</p><hr id="1719b9cb-f62f-80d8-aae2-df045ba18641"/><h2 id="1719b9cb-f62f-80a0-91bf-ebc425510e60" class="">W</h2><p id="1719b9cb-f62f-80b9-b282-fe68d073bd55" class=""><strong>WIFI-атака (Wi-Fi Attack)</strong> – попытка несанкционированного доступа к сети Wi-Fi с целью перехвата данных или использования сети.</p><hr id="1719b9cb-f62f-8049-a24f-f6993bdfb0ac"/><h2 id="1719b9cb-f62f-80ed-bf39-e299d46e2525" class="">Z</h2><p id="1719b9cb-f62f-80da-8bd7-dc6cf3fb2384" class=""><strong>Защита от потери данных (Data Loss Prevention, DLP)</strong> – системы и технологии, предназначенные для предотвращения утечек конфиденциальной информации или ее случайной утраты.</p><hr id="1719b9cb-f62f-80e5-aa2d-c215791e2a7d"/><p id="1719b9cb-f62f-80ae-ae11-e41562719e7e" class="">Этот глоссарий охватывает основные термины, которые используются в сфере информационной безопасности. С ним будет проще ориентироваться в документации, исследованиях и обсуждениях, связанных с обеспечением безопасности информационных систем.</p><p id="1729b9cb-f62f-8018-9e57-e70a714f18d0" class=""><a href="{% url 'cheme' %}"><span class="icon">📟</span>Схемы и диаграммы</a> </p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+
+{% endblock %}
