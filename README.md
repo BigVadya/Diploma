@@ -1,13 +1,13 @@
-# MoneyTrack
+# InfoSec Handbook
 
-Проект MoneyTrack разработан на Django.
+Проект InfoSec Handbook разработан на Django.
 
 ## Установка и настройка
 
 1. Клонируйте репозиторий:
 
 ```bash
-git clone https://github.com/BigVadya/
+git clone https://github.com/BigVadya/Diploma.git
 ```
 
 2. Установите зависимости:
