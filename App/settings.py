@@ -71,34 +71,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'App.wsgi.application'
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs', 'app.log'),  # Путь к файлу логов
-        },
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        #  Логи все вообще все
-        # 'django': {
-        #     'handlers': ['file', 'console'],
-        #     'level': 'INFO',
-        #     'propagate': True,
-        # },
-        'custom_logger': {  # Новый логгер для пользовательских действий
-            'handlers': ['file', 'console'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-    },
-}
+
 
 
 # Database

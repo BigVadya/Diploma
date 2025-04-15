@@ -1,678 +1,672 @@
-{% extends 'base.html' %} {% load static %} {% block content %} 
-
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3.2 Организационные методы</title><style>
-/* cspell:disable-file */
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-body {
-	margin: 0;
-	padding: 0;
-	line-height: 1.5;
-}
-
- 
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
+{% extends 'base.html' %} {% load static %} {% block content %} <html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3.2 Реализация системы с использованием облачных решений</title><style>
+	/* cspell:disable-file */
+	/* webkit printing magic: print all background colors */
+	html {
+		-webkit-print-color-adjust: exact;
 	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	padding-inline-start: 0;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-.page-description {
-	margin-bottom: 2em;
-}
-
-.simple-table {
-	margin-top: 1em;
-	font-size: 0.875rem;
-	empty-cells: show;
-}
-.simple-table td {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table th {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table-header-color {
-	background: rgb(247, 246, 243);
-	color: black;
-}
-.simple-table-header {
-	font-weight: 500;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	max-height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
-.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
-.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
-.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
-.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
-.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
-.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.highlight-default {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.highlight-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.highlight-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.highlight-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.highlight-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.highlight-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.highlight-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.highlight-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.highlight-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.highlight-default_background {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray_background {
-	background: rgba(248, 248, 247, 1);
-}
-.highlight-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.highlight-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.highlight-yellow_background {
-	background: rgba(251, 243, 219, 1);
-}
-.highlight-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.highlight-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.highlight-purple_background {
-	background: rgba(248, 243, 252, 1);
-}
-.highlight-pink_background {
-	background: rgba(252, 241, 246, 1);
-}
-.highlight-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.block-color-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.block-color-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.block-color-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.block-color-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.block-color-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.block-color-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.block-color-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.block-color-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.block-color-default_background {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray_background {
-	background: rgba(248, 248, 247, 1);
-}
-.block-color-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.block-color-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.block-color-yellow_background {
-	background: rgba(251, 243, 219, 1);
-}
-.block-color-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.block-color-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.block-color-purple_background {
-	background: rgba(248, 243, 252, 1);
-}
-.block-color-pink_background {
-	background: rgba(252, 241, 246, 1);
-}
-.block-color-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.select-value-color-uiBlue { background-color: undefined; }
-.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
-.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
-.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
-.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
-.select-value-color-transparentGray { background-color: undefined; }
-.select-value-color-translucentGray { background-color: undefined; }
-.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
-.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
-.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
-.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
-.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
-.select-value-color-pageGlass { background-color: undefined; }
-.select-value-color-washGlass { background-color: undefined; }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
+	* {
+		box-sizing: border-box;
+		-webkit-print-color-adjust: exact;
+	}
 	
-</style></head><body><article id="388ad3db-90b5-4125-8c23-b0c348bdf4b3" class="page serif"><header><div class="page-header-icon undefined"><span class="icon">🤼</span></div><h1 class="page-title">3.2 Организационные методы</h1><p class="page-description"></p></header><div class="page-body"><p id="1719b9cb-f62f-800c-9b21-dde12f5e54e7" class="">Организационные методы защиты являются важной составляющей обеспечения безопасности информационных систем. Эти методы фокусируются на управлении процессами, поведением сотрудников и установлении процедур для обеспечения целостности, конфиденциальности и доступности информации. В этом разделе рассмотрены основные организационные методы, такие как политики безопасности, регламенты работы, обучение персонала и контроль доступа.</p><h2 id="1719b9cb-f62f-8077-94e2-da85a58eead7" class="">Политики безопасности</h2><p id="1719b9cb-f62f-80dc-9256-dbd2bd8bb836" class="">Политики безопасности — это набор принципов, правил и стандартов, которые определяют, как организация управляет своими информационными активами, защищает данные и соблюдает требования безопасности. Политики безопасности являются основой для всех других методов защиты и обеспечивают четкие инструкции для сотрудников и других участников процессов безопасности.</p><ol type="1" id="1719b9cb-f62f-803e-b857-c227bcb77619" class="numbered-list" start="1"><li><strong>Политика конфиденциальности</strong>:<ul id="1719b9cb-f62f-8010-851e-cc6e36ba761f" class="bulleted-list"><li style="list-style-type:disc">Определяет, какие данные считаются конфиденциальными, как они должны обрабатываться и храниться, а также кто имеет доступ к этим данным. Эта политика гарантирует защиту персональных данных и другой чувствительной информации.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80c6-8c19-ec7ca288e3bf" class="numbered-list" start="2"><li><strong>Политика управления доступом</strong>:<ul id="1719b9cb-f62f-8014-be8b-e4b82d10ac6b" class="bulleted-list"><li style="list-style-type:disc">Описывает, какие права доступа должны быть предоставлены сотрудникам в зависимости от их роли и обязанностей в организации. Устанавливает механизмы для контроля, предоставления и отзыва доступа.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80ab-8afc-fc7aa87c3609" class="numbered-list" start="3"><li><strong>Политика резервного копирования и восстановления данных</strong>:<ul id="1719b9cb-f62f-80af-934e-fbab1a740b9d" class="bulleted-list"><li style="list-style-type:disc">Описывает правила и процедуры для регулярного создания резервных копий данных и их восстановления в случае инцидентов или потери данных. Устанавливает требования к защите резервных копий и их хранению.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-8064-ba65-d7b3f27b8aa5" class="numbered-list" start="4"><li><strong>Политика использования сетевых ресурсов и интернета</strong>:<ul id="1719b9cb-f62f-8032-9edf-f0a91c3633fb" class="bulleted-list"><li style="list-style-type:disc">Описание ограничений и рекомендаций по использованию интернет-ресурсов, корпоративной сети и устройств. Политика может включать запрет на посещение определенных сайтов, использование личных устройств и файлов.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80c2-a1b4-c078653da9ad" class="numbered-list" start="5"><li><strong>Политика безопасности для удаленной работы</strong>:<ul id="1719b9cb-f62f-80bb-83d9-f4a305d491dc" class="bulleted-list"><li style="list-style-type:disc">Устанавливает правила для сотрудников, работающих удаленно, чтобы гарантировать безопасность их устройств, данных и соединений при подключении к корпоративной сети.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-806b-8d62-e8de5dbfc879" class="numbered-list" start="6"><li><strong>Политика управления инцидентами безопасности</strong>:<ul id="1719b9cb-f62f-80c1-bb60-d9df952cf246" class="bulleted-list"><li style="list-style-type:disc">Включает процесс выявления, расследования и устранения инцидентов безопасности. Устанавливает ответственные лица, порядок действий и способы реагирования на инциденты.</li></ul></li></ol><h2 id="1719b9cb-f62f-80b0-8b64-f8a17578c301" class="">Регламенты работы</h2><p id="1719b9cb-f62f-8043-9d74-da0d03fd7b5a" class="">Регламенты работы — это детализированные инструкции, которые описывают, как именно должны выполняться операции с точки зрения безопасности. Эти регламенты служат ориентиром для сотрудников и помогают обеспечить согласованность действий в рамках компании.</p><ol type="1" id="1719b9cb-f62f-8023-be91-e09a7a8f85a0" class="numbered-list" start="1"><li><strong>Процедуры по управлению инцидентами</strong>:<ul id="1719b9cb-f62f-80dd-bd50-d453c9399f5d" class="bulleted-list"><li style="list-style-type:disc">Описывают пошаговое руководство для обработки инцидентов безопасности. Включают действия при обнаружении угрозы, уведомление соответствующих лиц, восстановление нормальной работы и анализ инцидента.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80f4-b0c3-ca48066f89fb" class="numbered-list" start="2"><li><strong>Процедуры по проверке безопасности</strong>:<ul id="1719b9cb-f62f-80b0-a096-d92eaaaa5191" class="bulleted-list"><li style="list-style-type:disc">Установленные процессы для регулярной проверки систем и программного обеспечения на наличие уязвимостей, а также для оценки соблюдения политики безопасности.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-8079-9259-dd58394daf70" class="numbered-list" start="3"><li><strong>Процедуры по изменению конфигурации и установке программного обеспечения</strong>:<ul id="1719b9cb-f62f-80d9-9688-e3c94628470c" class="bulleted-list"><li style="list-style-type:disc">Регламентируют, как и кем могут вноситься изменения в конфигурацию систем или устанавливаться новые программы. Это помогает избежать ненадежных или вредоносных изменений в инфраструктуре компании.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-8083-9ed3-e5d5f080628e" class="numbered-list" start="4"><li><strong>Процедуры по реагированию на угрозы внешнего происхождения</strong>:<ul id="1719b9cb-f62f-805b-b3a9-e1a3d48b7e7d" class="bulleted-list"><li style="list-style-type:disc">Определяют действия при обнаружении угроз, исходящих от внешних источников, таких как хакерские атаки, вирусы и вредоносные программы.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80db-9f3b-d2e1b3840aca" class="numbered-list" start="5"><li><strong>Процедуры по тестированию безопасности</strong>:<ul id="1719b9cb-f62f-804e-a7a9-fc04857ab6da" class="bulleted-list"><li style="list-style-type:disc">Регламентируют проведение тестов на уязвимости и нагрузки на системы для оценки их готовности к возможным угрозам.</li></ul></li></ol><h2 id="1719b9cb-f62f-8093-8a75-f3538e1da47a" class="">Обучение персонала</h2><p id="1719b9cb-f62f-8059-850b-c768dff52fb8" class="">Обучение сотрудников играет важнейшую роль в снижении рисков, связанных с человеческим фактором, и повышении общего уровня безопасности в организации. Правильное обучение помогает сотрудникам понимать важность соблюдения политики безопасности, а также способы предотвращения инцидентов.</p><ol type="1" id="1719b9cb-f62f-80ad-ad79-c5c584472f76" class="numbered-list" start="1"><li><strong>Обучение основам информационной безопасности</strong>:<ul id="1719b9cb-f62f-802a-8e6c-fe22918594d5" class="bulleted-list"><li style="list-style-type:disc">Проводятся тренинги по основным принципам безопасности, таким как создание сильных паролей, защита данных, безопасное использование электронной почты и интернета, а также предотвращение фишинга и других атак.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80c3-b674-dc51df4b17a5" class="numbered-list" start="2"><li><strong>Обучение по специфическим угрозам и рискам</strong>:<ul id="1719b9cb-f62f-80f1-9f25-e701c3d4bd6e" class="bulleted-list"><li style="list-style-type:disc">Сотрудников обучают по специфическим угрозам, с которыми они могут столкнуться в своей профессиональной деятельности (например, обработка персональных данных, защита критически важных приложений и систем).</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-8052-b5d7-e6f51c141645" class="numbered-list" start="3"><li><strong>Обучение по соблюдению политики безопасности</strong>:<ul id="1719b9cb-f62f-80d4-aa32-e55639aa834b" class="bulleted-list"><li style="list-style-type:disc">Проводятся регулярные тренинги, чтобы сотрудники были знакомы с актуальными изменениями в политике безопасности и знали, как правильно реагировать на инциденты.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80ac-8972-f34fba47d927" class="numbered-list" start="4"><li><strong>Периодические тренировки на реагирование на инциденты</strong>:<ul id="1719b9cb-f62f-800e-a070-f0df9919eefd" class="bulleted-list"><li style="list-style-type:disc">Сотрудники регулярно проходят тренировки по действиям в случае инцидента безопасности, чтобы иметь четкий план действий в экстренной ситуации.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80e9-86da-fc743ec7a54c" class="numbered-list" start="5"><li><strong>Оценка знаний сотрудников</strong>:<ul id="1719b9cb-f62f-80a7-87bd-f911d8b7e4e2" class="bulleted-list"><li style="list-style-type:disc">Проводятся тесты и оценки для проверки уровня знаний сотрудников в области безопасности. Это помогает выявить слабые места и направить усилия на дальнейшее улучшение обучения.</li></ul></li></ol><h2 id="1719b9cb-f62f-802e-85e6-fe7f1a8dfc88" class="">Контроль доступа</h2><p id="1719b9cb-f62f-804c-9bf1-c74172b07e36" class="">Контроль доступа — это процесс обеспечения того, чтобы только авторизованные лица могли получать доступ к информационным ресурсам, системам и данным организации. Этот метод помогает минимизировать риски утечек информации, кражи данных или злоупотреблений.</p><ol type="1" id="1719b9cb-f62f-8073-8057-e7166b39072c" class="numbered-list" start="1"><li><strong>Аутентификация</strong>:<ul id="1719b9cb-f62f-805b-8d21-c06195cdeeea" class="bulleted-list"><li style="list-style-type:disc">Процесс проверки личности пользователя при помощи различных методов: паролей, биометрии, смарт-карт, одноразовых кодов и других технологий. Аутентификация служит первым барьером для защиты информации.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-8083-b0f3-fe9012b82b05" class="numbered-list" start="2"><li><strong>Авторизация</strong>:<ul id="1719b9cb-f62f-80b2-80b5-dc75ee219c08" class="bulleted-list"><li style="list-style-type:disc">После успешной аутентификации система проверяет, какие ресурсы и данные доступны пользователю в зависимости от его роли и полномочий. Это минимизирует риски избыточного доступа к чувствительной информации.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-8079-a277-da50748f9ee7" class="numbered-list" start="3"><li><strong>Управление правами доступа</strong>:<ul id="1719b9cb-f62f-8003-8964-eae902a7f03a" class="bulleted-list"><li style="list-style-type:disc">Контроль прав доступа включает управление учетными записями пользователей, назначение соответствующих ролей и ограничение прав доступа в зависимости от их рабочих обязанностей. Принцип наименьших привилегий (Least Privilege) предполагает предоставление только тех прав, которые необходимы для выполнения конкретных задач.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80c4-9808-f56028878146" class="numbered-list" start="4"><li><strong>Многофакторная аутентификация (MFA)</strong>:<ul id="1719b9cb-f62f-8080-a0b3-f8c19b05a986" class="bulleted-list"><li style="list-style-type:disc">Использование нескольких факторов для подтверждения личности пользователя (например, пароль и одноразовый код, отправленный на мобильный телефон). Это значительно повышает уровень безопасности по сравнению с традиционными методами.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-803e-8486-f6146867c5e4" class="numbered-list" start="5"><li><strong>Мониторинг и аудит доступа</strong>:<ul id="1719b9cb-f62f-809e-b989-d95e955d1bf4" class="bulleted-list"><li style="list-style-type:disc">Ведение журналов и отчетов о действиях пользователей и их доступе к системам и данным. Это помогает выявить потенциальные нарушения и своевременно реагировать на подозрительные действия.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-805f-acc1-dc74839c41b8" class="numbered-list" start="6"><li><strong>Контроль доступа на физическом уровне</strong>:<ul id="1719b9cb-f62f-80c2-9bcb-e7ab09ff8990" class="bulleted-list"><li style="list-style-type:disc">Помимо виртуального доступа, важен также контроль физического доступа к критическим системам и помещениям (серверным комнатам, центрам обработки данных и т. д.). Это включает использование карт доступа, биометрии и других систем для предотвращения несанкционированного физического доступа.</li></ul></li></ol><h2 id="1719b9cb-f62f-803e-ae86-d7d59f0f9787" class="">Заключение</h2><p id="1719b9cb-f62f-8058-8028-d2836c618369" class="">Организационные методы защиты информационных систем играют ключевую роль в формировании общей стратегии безопасности. Политики безопасности, регламенты работы, обучение персонала и контроль доступа помогают создать рабочую среду, в которой минимизируется риск инцидентов безопасности и обеспечивается защита данных. Комплексное применение этих методов способствует снижению уязвимостей и созданию культуры безопасности в организации.</p><div id="1719b9cb-f62f-80e5-b96a-db4a57969d02" class="column-list"><div id="1719b9cb-f62f-801c-8e67-ef04b06dc27e" style="width:50%" class="column"><p id="1719b9cb-f62f-8013-9269-ca654ccd19c3" class=""><a href="{% url '3_1' %}"><span class="icon">🧑‍💻</span>3.1 Технические методы</a> </p></div><div id="1719b9cb-f62f-8048-bbab-eb8a6a2b43aa" style="width:50%" class="column"><p id="1719b9cb-f62f-802c-b4fe-e75386dd33f5" class=""><a href="{% url '4_1' %}"><span class="icon">🎰</span>4.1 Регулярные процедуры</a> </p></div></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	
+	
+	a,
+	a.visited {
+		color: inherit;
+		text-decoration: underline;
+	}
+	
+	.pdf-relative-link-path {
+		font-size: 80%;
+		color: #444;
+	}
+	
+	h1,
+	h2,
+	h3 {
+		letter-spacing: -0.01em;
+		line-height: 1.2;
+		font-weight: 600;
+		margin-bottom: 0;
+	}
+	
+	.page-title {
+		font-size: 2.5rem;
+		font-weight: 700;
+		margin-top: 0;
+		margin-bottom: 0.75em;
+	}
+	
+	h1 {
+		font-size: 1.875rem;
+		margin-top: 1.875rem;
+	}
+	
+	h2 {
+		font-size: 1.5rem;
+		margin-top: 1.5rem;
+	}
+	
+	h3 {
+		font-size: 1.25rem;
+		margin-top: 1.25rem;
+	}
+	
+	.source {
+		border: 1px solid #ddd;
+		border-radius: 3px;
+		padding: 1.5em;
+		word-break: break-all;
+	}
+	
+	.callout {
+		border-radius: 3px;
+		padding: 1rem;
+	}
+	
+	figure {
+		margin: 1.25em 0;
+		page-break-inside: avoid;
+	}
+	
+	figcaption {
+		opacity: 0.5;
+		font-size: 85%;
+		margin-top: 0.5em;
+	}
+	
+	mark {
+		background-color: transparent;
+	}
+	
+	.indented {
+		padding-left: 1.5em;
+	}
+	
+	hr {
+		background: transparent;
+		display: block;
+		width: 100%;
+		height: 1px;
+		visibility: visible;
+		border: none;
+		border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+	}
+	
+	img {
+		max-width: 100%;
+	}
+	
+	@media only print {
+		img {
+			max-height: 100vh;
+			object-fit: contain;
+		}
+	}
+	
+	@page {
+		margin: 1in;
+	}
+	
+	.collection-content {
+		font-size: 0.875rem;
+	}
+	
+	.column-list {
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.column {
+		padding: 0 1em;
+	}
+	
+	.column:first-child {
+		padding-left: 0;
+	}
+	
+	.column:last-child {
+		padding-right: 0;
+	}
+	
+	.table_of_contents-item {
+		display: block;
+		font-size: 0.875rem;
+		line-height: 1.3;
+		padding: 0.125rem;
+	}
+	
+	.table_of_contents-indent-1 {
+		margin-left: 1.5rem;
+	}
+	
+	.table_of_contents-indent-2 {
+		margin-left: 3rem;
+	}
+	
+	.table_of_contents-indent-3 {
+		margin-left: 4.5rem;
+	}
+	
+	.table_of_contents-link {
+		text-decoration: none;
+		opacity: 0.7;
+		border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+	}
+	
+	table,
+	th,
+	td {
+		border: 1px solid rgba(55, 53, 47, 0.09);
+		border-collapse: collapse;
+	}
+	
+	table {
+		border-left: none;
+		border-right: none;
+	}
+	
+	th,
+	td {
+		font-weight: normal;
+		padding: 0.25em 0.5em;
+		line-height: 1.5;
+		min-height: 1.5em;
+		text-align: left;
+	}
+	
+	th {
+		color: rgba(55, 53, 47, 0.6);
+	}
+	
+	ol,
+	ul {
+		margin: 0;
+		margin-block-start: 0.6em;
+		margin-block-end: 0.6em;
+	}
+	
+	li > ol:first-child,
+	li > ul:first-child {
+		margin-block-start: 0.6em;
+	}
+	
+		
+	ul.to-do-list {
+		padding-inline-start: 0;
+	}
+	
+	ul.to-do-list > li {
+		list-style: none;
+	}
+	
+	.to-do-children-checked {
+		text-decoration: line-through;
+		opacity: 0.375;
+	}
+	
+	ul.toggle > li {
+		list-style: none;
+	}
+	
+	ul {
+		padding-inline-start: 1.7em;
+	}
+	
+	ul > li {
+		padding-left: 0.1em;
+	}
+	
+	ol {
+		padding-inline-start: 1.6em;
+	}
+	
+	ol > li {
+		padding-left: 0.2em;
+	}
+	
+	.mono ol {
+		padding-inline-start: 2em;
+	}
+	
+	.mono ol > li {
+		text-indent: -0.4em;
+	}
+	
+	.toggle {
+		padding-inline-start: 0em;
+		list-style-type: none;
+	}
+	
+	/* Indent toggle children */
+	.toggle > li > details {
+		padding-left: 1.7em;
+	}
+	
+	.toggle > li > details > summary {
+		margin-left: -1.1em;
+	}
+	
+	.selected-value {
+		display: inline-block;
+		padding: 0 0.5em;
+		background: rgba(206, 205, 202, 0.5);
+		border-radius: 3px;
+		margin-right: 0.5em;
+		margin-top: 0.3em;
+		margin-bottom: 0.3em;
+		white-space: nowrap;
+	}
+	
+	.collection-title {
+		display: inline-block;
+		margin-right: 1em;
+	}
+	
+	.page-description {
+		margin-bottom: 2em;
+	}
+	
+	.simple-table {
+		margin-top: 1em;
+		font-size: 0.875rem;
+		empty-cells: show;
+	}
+	.simple-table td {
+		height: 29px;
+		min-width: 120px;
+	}
+	
+	.simple-table th {
+		height: 29px;
+		min-width: 120px;
+	}
+	
+	.simple-table-header-color {
+		background: rgb(247, 246, 243);
+		color: black;
+	}
+	.simple-table-header {
+		font-weight: 500;
+	}
+	
+	time {
+		opacity: 0.5;
+	}
+	
+	.icon {
+		display: inline-block;
+		max-width: 1.2em;
+		max-height: 1.2em;
+		text-decoration: none;
+		vertical-align: text-bottom;
+		margin-right: 0.5em;
+	}
+	
+	img.icon {
+		border-radius: 3px;
+	}
+	
+	.user-icon {
+		width: 1.5em;
+		height: 1.5em;
+		border-radius: 100%;
+		margin-right: 0.5rem;
+	}
+	
+	.user-icon-inner {
+		font-size: 0.8em;
+	}
+	
+	.text-icon {
+		border: 1px solid #000;
+		text-align: center;
+	}
+	
+	.page-cover-image {
+		display: block;
+		object-fit: cover;
+		width: 100%;
+		max-height: 30vh;
+	}
+	
+	.page-header-icon {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+	}
+	
+	.page-header-icon-with-cover {
+		margin-top: -0.72em;
+		margin-left: 0.07em;
+	}
+	
+	.page-header-icon img {
+		border-radius: 3px;
+	}
+	
+	.link-to-page {
+		margin: 1em 0;
+		padding: 0;
+		border: none;
+		font-weight: 500;
+	}
+	
+	p > .user {
+		opacity: 0.5;
+	}
+	
+	td > .user,
+	td > time {
+		white-space: nowrap;
+	}
+	
+	input[type="checkbox"] {
+		transform: scale(1.5);
+		margin-right: 0.6em;
+		vertical-align: middle;
+	}
+	
+	p {
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+	}
+	
+	.image {
+		border: none;
+		margin: 1.5em 0;
+		padding: 0;
+		border-radius: 0;
+		text-align: center;
+	}
+	
+	.code,
+	code {
+		background: rgba(135, 131, 120, 0.15);
+		border-radius: 3px;
+		padding: 0.2em 0.4em;
+		border-radius: 3px;
+		font-size: 85%;
+		tab-size: 2;
+	}
+	
+	code {
+		color: #eb5757;
+	}
+	
+	.code {
+		padding: 1.5em 1em;
+	}
+	
+	.code-wrap {
+		white-space: pre-wrap;
+		word-break: break-all;
+	}
+	
+	.code > code {
+		background: none;
+		padding: 0;
+		font-size: 100%;
+		color: inherit;
+	}
+	
+	blockquote {
+		font-size: 1.25em;
+		margin: 1em 0;
+		padding-left: 1em;
+		border-left: 3px solid rgb(55, 53, 47);
+	}
+	
+	.bookmark {
+		text-decoration: none;
+		max-height: 8em;
+		padding: 0;
+		display: flex;
+		width: 100%;
+		align-items: stretch;
+	}
+	
+	.bookmark-title {
+		font-size: 0.85em;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		height: 1.75em;
+		white-space: nowrap;
+	}
+	
+	.bookmark-text {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.bookmark-info {
+		flex: 4 1 180px;
+		padding: 12px 14px 14px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	
+	.bookmark-image {
+		width: 33%;
+		flex: 1 1 180px;
+		display: block;
+		position: relative;
+		object-fit: cover;
+		border-radius: 1px;
+	}
+	
+	.bookmark-description {
+		color: rgba(55, 53, 47, 0.6);
+		font-size: 0.75em;
+		overflow: hidden;
+		max-height: 4.5em;
+		word-break: break-word;
+	}
+	
+	.bookmark-href {
+		font-size: 0.75em;
+		margin-top: 0.25em;
+	}
+	
+	.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+	.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+	.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+	.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+	.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+	.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+	.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+	.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+	.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+	.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+	.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+	.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+	.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+	.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+	.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+	.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+	.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+	.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+	.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+	.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+	.highlight-default {
+		color: rgba(55, 53, 47, 1);
+	}
+	.highlight-gray {
+		color: rgba(120, 119, 116, 1);
+		fill: rgba(120, 119, 116, 1);
+	}
+	.highlight-brown {
+		color: rgba(159, 107, 83, 1);
+		fill: rgba(159, 107, 83, 1);
+	}
+	.highlight-orange {
+		color: rgba(217, 115, 13, 1);
+		fill: rgba(217, 115, 13, 1);
+	}
+	.highlight-yellow {
+		color: rgba(203, 145, 47, 1);
+		fill: rgba(203, 145, 47, 1);
+	}
+	.highlight-teal {
+		color: rgba(68, 131, 97, 1);
+		fill: rgba(68, 131, 97, 1);
+	}
+	.highlight-blue {
+		color: rgba(51, 126, 169, 1);
+		fill: rgba(51, 126, 169, 1);
+	}
+	.highlight-purple {
+		color: rgba(144, 101, 176, 1);
+		fill: rgba(144, 101, 176, 1);
+	}
+	.highlight-pink {
+		color: rgba(193, 76, 138, 1);
+		fill: rgba(193, 76, 138, 1);
+	}
+	.highlight-red {
+		color: rgba(212, 76, 71, 1);
+		fill: rgba(212, 76, 71, 1);
+	}
+	.highlight-default_background {
+		color: rgba(55, 53, 47, 1);
+	}
+	.highlight-gray_background {
+		background: rgba(248, 248, 247, 1);
+	}
+	.highlight-brown_background {
+		background: rgba(244, 238, 238, 1);
+	}
+	.highlight-orange_background {
+		background: rgba(251, 236, 221, 1);
+	}
+	.highlight-yellow_background {
+		background: rgba(251, 243, 219, 1);
+	}
+	.highlight-teal_background {
+		background: rgba(237, 243, 236, 1);
+	}
+	.highlight-blue_background {
+		background: rgba(231, 243, 248, 1);
+	}
+	.highlight-purple_background {
+		background: rgba(248, 243, 252, 1);
+	}
+	.highlight-pink_background {
+		background: rgba(252, 241, 246, 1);
+	}
+	.highlight-red_background {
+		background: rgba(253, 235, 236, 1);
+	}
+	.block-color-default {
+		color: inherit;
+		fill: inherit;
+	}
+	.block-color-gray {
+		color: rgba(120, 119, 116, 1);
+		fill: rgba(120, 119, 116, 1);
+	}
+	.block-color-brown {
+		color: rgba(159, 107, 83, 1);
+		fill: rgba(159, 107, 83, 1);
+	}
+	.block-color-orange {
+		color: rgba(217, 115, 13, 1);
+		fill: rgba(217, 115, 13, 1);
+	}
+	.block-color-yellow {
+		color: rgba(203, 145, 47, 1);
+		fill: rgba(203, 145, 47, 1);
+	}
+	.block-color-teal {
+		color: rgba(68, 131, 97, 1);
+		fill: rgba(68, 131, 97, 1);
+	}
+	.block-color-blue {
+		color: rgba(51, 126, 169, 1);
+		fill: rgba(51, 126, 169, 1);
+	}
+	.block-color-purple {
+		color: rgba(144, 101, 176, 1);
+		fill: rgba(144, 101, 176, 1);
+	}
+	.block-color-pink {
+		color: rgba(193, 76, 138, 1);
+		fill: rgba(193, 76, 138, 1);
+	}
+	.block-color-red {
+		color: rgba(212, 76, 71, 1);
+		fill: rgba(212, 76, 71, 1);
+	}
+	.block-color-default_background {
+		color: inherit;
+		fill: inherit;
+	}
+	.block-color-gray_background {
+		background: rgba(248, 248, 247, 1);
+	}
+	.block-color-brown_background {
+		background: rgba(244, 238, 238, 1);
+	}
+	.block-color-orange_background {
+		background: rgba(251, 236, 221, 1);
+	}
+	.block-color-yellow_background {
+		background: rgba(251, 243, 219, 1);
+	}
+	.block-color-teal_background {
+		background: rgba(237, 243, 236, 1);
+	}
+	.block-color-blue_background {
+		background: rgba(231, 243, 248, 1);
+	}
+	.block-color-purple_background {
+		background: rgba(248, 243, 252, 1);
+	}
+	.block-color-pink_background {
+		background: rgba(252, 241, 246, 1);
+	}
+	.block-color-red_background {
+		background: rgba(253, 235, 236, 1);
+	}
+	.select-value-color-uiBlue { background-color: undefined; }
+	.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+	.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+	.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+	.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+	.select-value-color-transparentGray { background-color: undefined; }
+	.select-value-color-translucentGray { background-color: undefined; }
+	.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+	.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+	.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+	.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+	.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+	.select-value-color-pageGlass { background-color: undefined; }
+	.select-value-color-washGlass { background-color: undefined; }
+	
+	.checkbox {
+		display: inline-flex;
+		vertical-align: text-bottom;
+		width: 16;
+		height: 16;
+		background-size: 16px;
+		margin-left: 2px;
+		margin-right: 5px;
+	}
+	
+	.checkbox-on {
+		background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+	}
+	
+	.checkbox-off {
+		background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+	}
+		
+	</style></head><body><article id="388ad3db-90b5-4125-8c23-b0c348bdf4b3" class="page serif"><header><div class="page-header-icon undefined"><span class="icon">🤼</span></div><h1 class="page-title">3.2 Реализация системы с использованием облачных решений</h1><p class="page-description"></p></header><div class="page-body"><h3 id="1cb9b9cb-f62f-8015-97af-ce0891839c82" class="">☁️ Выбор облачной инфраструктуры</h3><p id="1cb9b9cb-f62f-8089-aff6-fc602bec9c75" class="">Для обеспечения высокой доступности, надежности и масштабируемости СИС будет развернута в облачной среде. Выбор облачных технологий обусловлен следующими факторами:</p><p id="1cb9b9cb-f62f-8091-9a41-f276da44bc53" class="">🔹 <strong>Гибкость</strong> – возможность быстро изменять конфигурацию в зависимости от нагрузки.</p><p id="1cb9b9cb-f62f-808e-9a76-ec16e40e75b8" class="">🔹 <strong>Безопасность</strong> – централизованное управление доступом, резервное копирование, шифрование данных.</p><p id="1cb9b9cb-f62f-8038-870d-ed3c80c5b80d" class="">🔹 <strong>Масштабируемость</strong> – возможность автоматического увеличения ресурсов при росте нагрузки.</p><p id="1cb9b9cb-f62f-802a-a40d-f24e78d3a43c" class="">🔹 <strong>Доступность</strong> – круглосуточный доступ к системе с любого устройства.</p><p id="1cb9b9cb-f62f-801d-b198-c60f4b176fa0" class="">Для реализации СИС выбраны следующие <strong>облачные сервисы</strong>:</p><ul id="1cb9b9cb-f62f-8060-bd3c-e357b22c418f" class="bulleted-list"><li style="list-style-type:disc"><strong>Хостинг и серверная часть:</strong><ul id="1cb9b9cb-f62f-8084-842d-fa01c8220767" class="bulleted-list"><li style="list-style-type:circle">AWS EC2 / Google Cloud Compute Engine – развертывание серверного приложения.</li></ul><ul id="1cb9b9cb-f62f-80ff-9d1d-ed40c736a6fa" class="bulleted-list"><li style="list-style-type:circle">Docker + Kubernetes – контейнеризация и управление микросервисами.</li></ul></li></ul><ul id="1cb9b9cb-f62f-80ea-af85-d1f32446c8a8" class="bulleted-list"><li style="list-style-type:disc"><strong>База данных:</strong><ul id="1cb9b9cb-f62f-8063-a8f8-dfb795fc63f3" class="bulleted-list"><li style="list-style-type:circle">PostgreSQL (Cloud SQL) – облачная реляционная база данных.</li></ul><ul id="1cb9b9cb-f62f-80bf-9792-eb3dbafa0e9d" class="bulleted-list"><li style="list-style-type:circle">Redis – кэширование запросов для ускорения работы.</li></ul></li></ul><ul id="1cb9b9cb-f62f-806c-95c8-c5ac137d4701" class="bulleted-list"><li style="list-style-type:disc"><strong>Файловое хранилище:</strong><ul id="1cb9b9cb-f62f-802a-abf9-fb7bf49ed500" class="bulleted-list"><li style="list-style-type:circle">AWS S3 / Google Cloud Storage – хранение справочных материалов, изображений и видеороликов.</li></ul></li></ul><ul id="1cb9b9cb-f62f-8054-a9f4-d1a71b6e41ab" class="bulleted-list"><li style="list-style-type:disc"><strong>Аутентификация и безопасность:</strong><ul id="1cb9b9cb-f62f-8088-8d3e-cc10807db7f3" class="bulleted-list"><li style="list-style-type:circle">Firebase Authentication / Auth0 – управление пользователями и контроль доступа.</li></ul><ul id="1cb9b9cb-f62f-8017-8440-f6e650e4fcf8" class="bulleted-list"><li style="list-style-type:circle">HTTPS, OAuth 2.0, JWT – защита данных и запросов.</li></ul></li></ul><h3 id="1cb9b9cb-f62f-8036-afc1-f6af0e03e5de" class="">🏗 Реализация основных компонентов</h3><p id="1cb9b9cb-f62f-801c-a0fc-e54214bdd84f" class="">Реализация справочной системы включает несколько ключевых этапов:</p><ol type="1" id="1cb9b9cb-f62f-808f-b3e4-cb325ff89ee8" class="numbered-list" start="1"><li><strong>Разработка базы данных</strong><ul id="1cb9b9cb-f62f-8010-9b48-fb16cf1adbef" class="bulleted-list"><li style="list-style-type:disc">Создание схемы данных для хранения справочных материалов, пользовательских запросов, логов активности.</li></ul><ul id="1cb9b9cb-f62f-8068-81fe-fe0a05bfef62" class="bulleted-list"><li style="list-style-type:disc">Настройка индексов и оптимизация запросов для быстрого доступа к информации.</li></ul></li></ol><ol type="1" id="1cb9b9cb-f62f-8088-ad1e-ef5a5e0cc42b" class="numbered-list" start="2"><li><strong>Создание серверной логики (Backend)</strong><ul id="1cb9b9cb-f62f-8072-ad70-da9189d8604f" class="bulleted-list"><li style="list-style-type:disc">Разработка REST API для обработки пользовательских запросов (Node.js, Nest.js).</li></ul><ul id="1cb9b9cb-f62f-80ba-83be-c44dcfac3814" class="bulleted-list"><li style="list-style-type:disc">Реализация системы поиска (Elasticsearch, PostgreSQL Full-Text Search).</li></ul><ul id="1cb9b9cb-f62f-8040-b6d5-e90bad100bff" class="bulleted-list"><li style="list-style-type:disc">Интеграция с системой документооборота (через API).</li></ul></li></ol><ol type="1" id="1cb9b9cb-f62f-80b1-8c51-f1b221b88eab" class="numbered-list" start="3"><li><strong>Разработка клиентского интерфейса (Frontend)</strong><ul id="1cb9b9cb-f62f-8080-914c-e7d3e47c41da" class="bulleted-list"><li style="list-style-type:disc">Создание адаптивного дизайна (React.js + Tailwind CSS).</li></ul><ul id="1cb9b9cb-f62f-805b-bf70-da0c905027ef" class="bulleted-list"><li style="list-style-type:disc">Реализация динамических страниц и фильтров поиска.</li></ul><ul id="1cb9b9cb-f62f-807e-a977-f7daeeef4fdb" class="bulleted-list"><li style="list-style-type:disc">Внедрение интерактивных подсказок и мультимедийных материалов.</li></ul></li></ol><ol type="1" id="1cb9b9cb-f62f-80d0-9be8-e9c40bd1605c" class="numbered-list" start="4"><li><strong>Тестирование и развертывание</strong><ul id="1cb9b9cb-f62f-8078-a9b2-f9ee3de7581c" class="bulleted-list"><li style="list-style-type:disc">Проведение модульного и интеграционного тестирования.</li></ul><ul id="1cb9b9cb-f62f-8040-9d31-f933d1dc5534" class="bulleted-list"><li style="list-style-type:disc">Развертывание системы в облаке и настройка CI/CD (GitHub Actions, Jenkins).</li></ul><ul id="1cb9b9cb-f62f-805d-bd69-efa21c838d9f" class="bulleted-list"><li style="list-style-type:disc">Мониторинг работоспособности (Prometheus, Grafana).</li></ul></li></ol><h3 id="1cb9b9cb-f62f-8062-9b25-df101aefb0e1" class="">🔐 Вопросы безопасности</h3><p id="1cb9b9cb-f62f-80c3-a522-ef85b2e7aefe" class="">Поскольку система работает с корпоративными данными, необходимо учитывать ключевые меры безопасности:</p><p id="1cb9b9cb-f62f-80f1-8e6e-c53668caa71c" class="">✅ <strong>Контроль доступа</strong> – разграничение прав пользователей (роль администратора, редактора, читателя).</p><p id="1cb9b9cb-f62f-8048-adb2-f43e4c7d617a" class="">✅ <strong>Шифрование данных</strong> – использование TLS 1.2/1.3, AES-256 для защиты информации.</p><p id="1cb9b9cb-f62f-801c-8fd4-e16f7cf3ad5c" class="">✅ <strong>Мониторинг и аудит</strong> – отслеживание подозрительных действий, логирование событий.</p><p id="1cb9b9cb-f62f-807b-9775-ccaa6743d1be" class="">✅ <strong>Регулярные обновления</strong> – защита от уязвимостей и актуализация компонентов системы.</p><p id="1cb9b9cb-f62f-807b-b28f-e295bc976ae7" class="">Благодаря использованию облачных технологий, система обеспечит <strong>гибкость, надежность, удобство управления и высокий уровень безопасности</strong>, что делает её эффективным инструментом для автоматизации документооборота. 🚀</p><div id="1719b9cb-f62f-80e5-b96a-db4a57969d02" class="column-list"><div id="1719b9cb-f62f-801c-8e67-ef04b06dc27e" style="width:50%" class="column"><p id="1719b9cb-f62f-8013-9269-ca654ccd19c3" class=""><a href="{% url '3_1' %}"><span class="icon">🧑‍💻</span>3.1 Проектирование интерфейса и функционала</a> </p></div><div id="1719b9cb-f62f-8048-bbab-eb8a6a2b43aa" style="width:50%" class="column"><p id="1719b9cb-f62f-802c-b4fe-e75386dd33f5" class=""><a href="{% url '4_1' %}"><span class="icon">🎰</span>4.1 Администрирование и обновления системы</a> </p></div></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
 
 {% endblock %}

@@ -1,677 +1,673 @@
 {% extends 'base.html' %} {% load static %} {% block content %} 
 
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>5.1 Основные результаты</title><style>
-/* cspell:disable-file */
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
- 
-body {
-	margin: 0;
-	padding: 0;
-	line-height: 1.5;
-}
- 
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>5.1 Методика тестирования и результаты</title><style>
+	/* cspell:disable-file */
+	/* webkit printing magic: print all background colors */
+	html {
+		-webkit-print-color-adjust: exact;
 	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	padding-inline-start: 0;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-.page-description {
-	margin-bottom: 2em;
-}
-
-.simple-table {
-	margin-top: 1em;
-	font-size: 0.875rem;
-	empty-cells: show;
-}
-.simple-table td {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table th {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table-header-color {
-	background: rgb(247, 246, 243);
-	color: black;
-}
-.simple-table-header {
-	font-weight: 500;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	max-height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
-.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
-.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
-.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
-.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
-.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
-.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.highlight-default {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.highlight-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.highlight-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.highlight-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.highlight-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.highlight-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.highlight-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.highlight-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.highlight-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.highlight-default_background {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray_background {
-	background: rgba(248, 248, 247, 1);
-}
-.highlight-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.highlight-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.highlight-yellow_background {
-	background: rgba(251, 243, 219, 1);
-}
-.highlight-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.highlight-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.highlight-purple_background {
-	background: rgba(248, 243, 252, 1);
-}
-.highlight-pink_background {
-	background: rgba(252, 241, 246, 1);
-}
-.highlight-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.block-color-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.block-color-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.block-color-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.block-color-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.block-color-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.block-color-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.block-color-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.block-color-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.block-color-default_background {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray_background {
-	background: rgba(248, 248, 247, 1);
-}
-.block-color-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.block-color-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.block-color-yellow_background {
-	background: rgba(251, 243, 219, 1);
-}
-.block-color-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.block-color-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.block-color-purple_background {
-	background: rgba(248, 243, 252, 1);
-}
-.block-color-pink_background {
-	background: rgba(252, 241, 246, 1);
-}
-.block-color-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.select-value-color-uiBlue { background-color: undefined; }
-.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
-.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
-.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
-.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
-.select-value-color-transparentGray { background-color: undefined; }
-.select-value-color-translucentGray { background-color: undefined; }
-.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
-.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
-.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
-.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
-.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
-.select-value-color-pageGlass { background-color: undefined; }
-.select-value-color-washGlass { background-color: undefined; }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
+	* {
+		box-sizing: border-box;
+		-webkit-print-color-adjust: exact;
+	}
 	
-</style></head><body><article id="55578043-95e9-4fb4-8516-5441f64ebcfd" class="page serif"><header><div class="page-header-icon undefined"><span class="icon">🧾</span></div><h1 class="page-title">5.1 Основные результаты</h1><p class="page-description"></p></header><div class="page-body"><p id="1719b9cb-f62f-8099-910e-ed92966e9a3c" class="">Проект по обеспечению безопасности информационных систем направлен на достижение высоких стандартов защиты данных, минимизацию рисков и обеспечение бесперебойной работы информационной инфраструктуры организации. В данном разделе рассматриваются основные результаты проекта, включая достижение целей, эффективность предложенных мер и практическую значимость.</p><h2 id="1719b9cb-f62f-803d-b881-e6207d9e0cf3" class="">Достижение целей проекта</h2><p id="1719b9cb-f62f-80ba-9b40-d380eb41f204" class="">Одной из основных целей проекта является повышение уровня безопасности информационных систем организации. Процесс обеспечения безопасности требует комплексного подхода и реализации множества технических и организационных мероприятий. Успех проекта можно оценить по нескольким критериям:</p><ol type="1" id="1719b9cb-f62f-80c1-8335-e5db3211371f" class="numbered-list" start="1"><li><strong>Повышение уровня защиты данных</strong>:<ul id="1719b9cb-f62f-8084-924e-f900223fbf5c" class="bulleted-list"><li style="list-style-type:disc">В результате выполнения мер по улучшению безопасности была достигнута значительная защита критической информации, что включает в себя данные клиентов, финансовую информацию и корпоративную переписку.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80e2-bcfd-d8c4b3fb406c" class="numbered-list" start="2"><li><strong>Снижение числа инцидентов безопасности</strong>:<ul id="1719b9cb-f62f-8094-b9f1-fa66f9bdab32" class="bulleted-list"><li style="list-style-type:disc">Одной из ключевых целей является сокращение числа инцидентов безопасности, таких как утечки данных, несанкционированный доступ или атаки на системы. В рамках проекта были внедрены системы защиты и мониторинга, что позволило уменьшить количество подобных инцидентов.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80d7-a2a3-ee1a4aacf7e0" class="numbered-list" start="3"><li><strong>Соответствие нормативным требованиям</strong>:<ul id="1719b9cb-f62f-80af-88ed-ddb5a03a657a" class="bulleted-list"><li style="list-style-type:disc">Проект был направлен на достижение соответствия существующим законодательным нормам и стандартам безопасности, таким как GDPR, ISO/IEC 27001, что является важной частью обеспечения юридической чистоты и доверия клиентов.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80e6-bbfe-c0c172914b09" class="numbered-list" start="4"><li><strong>Повышение осведомленности и квалификации персонала</strong>:<ul id="1719b9cb-f62f-80d5-8b53-f181d36abcc9" class="bulleted-list"><li style="list-style-type:disc">Реализация программы обучения сотрудников безопасности помогла повысить осведомленность и снизить число инцидентов, вызванных человеческим фактором.</li></ul></li></ol><h2 id="1719b9cb-f62f-80ad-9fe4-c6839e07eef5" class="">Эффективность предложенных мер</h2><p id="1719b9cb-f62f-80d2-a3d2-e10bb3fca6a5" class="">Принятые в рамках проекта меры по улучшению безопасности оказались высокоэффективными и обеспечили устойчивость систем к современным угрозам. Оценка эффективности предложенных мероприятий может быть основана на нескольких показателях:</p><ol type="1" id="1719b9cb-f62f-805f-b4a9-c65302f6fa9d" class="numbered-list" start="1"><li><strong>Уменьшение числа уязвимостей</strong>:<ul id="1719b9cb-f62f-8093-847a-e93ae850d469" class="bulleted-list"><li style="list-style-type:disc">Проведенные аудиты безопасности и тестирование системы на уязвимости позволили закрыть ряд критичных слабых мест в инфраструктуре, что существенно уменьшило возможности для атак.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80ea-add9-ebf2eca45b20" class="numbered-list" start="2"><li><strong>Снижение последствий инцидентов</strong>:<ul id="1719b9cb-f62f-80bb-b0b4-d0bc2f660c1f" class="bulleted-list"><li style="list-style-type:disc">Внедрение планов реагирования и регулярных процедур восстановления обеспечило более быструю реакцию на инциденты, что позволило минимизировать потери и время простоя систем.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-8075-ab86-c7e3d1209ef0" class="numbered-list" start="3"><li><strong>Рост безопасности на всех уровнях</strong>:<ul id="1719b9cb-f62f-8098-ad3e-f39dfdf3c247" class="bulleted-list"><li style="list-style-type:disc">Внедрение многоуровневых систем защиты, включая защиту периметра, антивирусные решения, системы мониторинга и резервное копирование, позволило создать более надежную и защищенную инфраструктуру.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80d6-9026-d1e970cbf95e" class="numbered-list" start="4"><li><strong>Обновление и поддержка безопасности на актуальном уровне</strong>:<ul id="1719b9cb-f62f-8024-b4a0-c410b8f0a0d5" class="bulleted-list"><li style="list-style-type:disc">Регулярные обновления программного обеспечения, тестирование защиты и обучение персонала помогли обеспечить поддержание высоких стандартов безопасности.</li></ul></li></ol><h2 id="1719b9cb-f62f-802b-b38e-f0ff39fb5bb2" class="">Практическая значимость</h2><p id="1719b9cb-f62f-804a-bde4-c7fa6562e255" class="">Реализация проекта по обеспечению безопасности информационных систем не только улучшила защиту данных и снизила риски, но и принесла ощутимые практические преимущества для бизнеса. Ключевые моменты практической значимости проекта включают:</p><ol type="1" id="1719b9cb-f62f-807a-9b58-f1118b5575ee" class="numbered-list" start="1"><li><strong>Повышение доверия со стороны клиентов и партнеров</strong>:<ul id="1719b9cb-f62f-8078-a118-ce68b7529f63" class="bulleted-list"><li style="list-style-type:disc">За счет внедрения строгих мер безопасности и обеспечения соответствия требованиям законодательства организация смогла повысить доверие со стороны клиентов и партнеров, что положительно сказалось на репутации.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-801a-995a-f79014317132" class="numbered-list" start="2"><li><strong>Снижение рисков финансовых потерь</strong>:<ul id="1719b9cb-f62f-801f-be27-e2a5b85100d7" class="bulleted-list"><li style="list-style-type:disc">Профилактика и минимизация инцидентов, связанных с утечками данных или атаками, позволили избежать потенциальных финансовых потерь, штрафов за нарушение законодательства и компенсаций пострадавшим сторонам.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-8016-802d-daaf339e3506" class="numbered-list" start="3"><li><strong>Увеличение операционной эффективности</strong>:<ul id="1719b9cb-f62f-805f-a8fb-f367e921eddd" class="bulleted-list"><li style="list-style-type:disc">Обеспечение надежной защиты информационных систем позволило снизить количество времени, затрачиваемого на устранение инцидентов и восстановление работы систем, что повышает общую операционную эффективность организации.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80fc-847c-d72747527566" class="numbered-list" start="4"><li><strong>Стабильность и бесперебойная работа инфраструктуры</strong>:<ul id="1719b9cb-f62f-8032-9984-dd28ab51c453" class="bulleted-list"><li style="list-style-type:disc">Внедрение процедур тестирования и мониторинга защиты привело к улучшению устойчивости ИТ-инфраструктуры к внешним угрозам, что обеспечило стабильность и бесперебойную работу всех бизнес-процессов.</li></ul></li></ol><ol type="1" id="1719b9cb-f62f-80d3-8d49-d9590bd26dea" class="numbered-list" start="5"><li><strong>Соответствие отраслевым и законодательным стандартам</strong>:<ul id="1719b9cb-f62f-8068-847c-edd19d0c89b3" class="bulleted-list"><li style="list-style-type:disc">Соответствие международным и местным стандартам безопасности (например, GDPR, ISO/IEC 27001) повысило уровень доверия к организации и снизило юридические риски.</li></ul></li></ol><h2 id="1719b9cb-f62f-8058-a55f-fe10eede27dd" class="">Заключение</h2><p id="1719b9cb-f62f-8090-a41e-f2b28b73958a" class="">Основными результатами проекта являются значительное улучшение уровня безопасности информационных систем, эффективное снижение рисков, повышение надежности и доверия со стороны клиентов и партнеров, а также сокращение возможных финансовых потерь от инцидентов. Реализованные меры доказали свою эффективность, и проект имеет важную практическую значимость для долгосрочной защиты организации и ее информационных активов.</p><div id="1719b9cb-f62f-80d8-833e-fde745b9dc31" class="column-list"><div id="1719b9cb-f62f-80c4-b79f-ce8249e15bca" style="width:50%" class="column"><p id="1719b9cb-f62f-8030-850a-dccc69f32424" class=""><a href="{% url '4_2' %}"><span class="icon">⚡</span>4.2 Действия при инцидентах</a> </p></div><div id="1719b9cb-f62f-802b-8220-de6b6079944c" style="width:50%" class="column"><p id="1719b9cb-f62f-8030-8ce6-ede42f3c4418" class=""><a href="{% url '5_2' %}"><span class="icon">📈</span>5.2 Перспективы развития</a> </p></div></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	
+	
+	a,
+	a.visited {
+		color: inherit;
+		text-decoration: underline;
+	}
+	
+	.pdf-relative-link-path {
+		font-size: 80%;
+		color: #444;
+	}
+	
+	h1,
+	h2,
+	h3 {
+		letter-spacing: -0.01em;
+		line-height: 1.2;
+		font-weight: 600;
+		margin-bottom: 0;
+	}
+	
+	.page-title {
+		font-size: 2.5rem;
+		font-weight: 700;
+		margin-top: 0;
+		margin-bottom: 0.75em;
+	}
+	
+	h1 {
+		font-size: 1.875rem;
+		margin-top: 1.875rem;
+	}
+	
+	h2 {
+		font-size: 1.5rem;
+		margin-top: 1.5rem;
+	}
+	
+	h3 {
+		font-size: 1.25rem;
+		margin-top: 1.25rem;
+	}
+	
+	.source {
+		border: 1px solid #ddd;
+		border-radius: 3px;
+		padding: 1.5em;
+		word-break: break-all;
+	}
+	
+	.callout {
+		border-radius: 3px;
+		padding: 1rem;
+	}
+	
+	figure {
+		margin: 1.25em 0;
+		page-break-inside: avoid;
+	}
+	
+	figcaption {
+		opacity: 0.5;
+		font-size: 85%;
+		margin-top: 0.5em;
+	}
+	
+	mark {
+		background-color: transparent;
+	}
+	
+	.indented {
+		padding-left: 1.5em;
+	}
+	
+	hr {
+		background: transparent;
+		display: block;
+		width: 100%;
+		height: 1px;
+		visibility: visible;
+		border: none;
+		border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+	}
+	
+	img {
+		max-width: 100%;
+	}
+	
+	@media only print {
+		img {
+			max-height: 100vh;
+			object-fit: contain;
+		}
+	}
+	
+	@page {
+		margin: 1in;
+	}
+	
+	.collection-content {
+		font-size: 0.875rem;
+	}
+	
+	.column-list {
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.column {
+		padding: 0 1em;
+	}
+	
+	.column:first-child {
+		padding-left: 0;
+	}
+	
+	.column:last-child {
+		padding-right: 0;
+	}
+	
+	.table_of_contents-item {
+		display: block;
+		font-size: 0.875rem;
+		line-height: 1.3;
+		padding: 0.125rem;
+	}
+	
+	.table_of_contents-indent-1 {
+		margin-left: 1.5rem;
+	}
+	
+	.table_of_contents-indent-2 {
+		margin-left: 3rem;
+	}
+	
+	.table_of_contents-indent-3 {
+		margin-left: 4.5rem;
+	}
+	
+	.table_of_contents-link {
+		text-decoration: none;
+		opacity: 0.7;
+		border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+	}
+	
+	table,
+	th,
+	td {
+		border: 1px solid rgba(55, 53, 47, 0.09);
+		border-collapse: collapse;
+	}
+	
+	table {
+		border-left: none;
+		border-right: none;
+	}
+	
+	th,
+	td {
+		font-weight: normal;
+		padding: 0.25em 0.5em;
+		line-height: 1.5;
+		min-height: 1.5em;
+		text-align: left;
+	}
+	
+	th {
+		color: rgba(55, 53, 47, 0.6);
+	}
+	
+	ol,
+	ul {
+		margin: 0;
+		margin-block-start: 0.6em;
+		margin-block-end: 0.6em;
+	}
+	
+	li > ol:first-child,
+	li > ul:first-child {
+		margin-block-start: 0.6em;
+	}
+	
+		
+	ul.to-do-list {
+		padding-inline-start: 0;
+	}
+	
+	ul.to-do-list > li {
+		list-style: none;
+	}
+	
+	.to-do-children-checked {
+		text-decoration: line-through;
+		opacity: 0.375;
+	}
+	
+	ul.toggle > li {
+		list-style: none;
+	}
+	
+	ul {
+		padding-inline-start: 1.7em;
+	}
+	
+	ul > li {
+		padding-left: 0.1em;
+	}
+	
+	ol {
+		padding-inline-start: 1.6em;
+	}
+	
+	ol > li {
+		padding-left: 0.2em;
+	}
+	
+	.mono ol {
+		padding-inline-start: 2em;
+	}
+	
+	.mono ol > li {
+		text-indent: -0.4em;
+	}
+	
+	.toggle {
+		padding-inline-start: 0em;
+		list-style-type: none;
+	}
+	
+	/* Indent toggle children */
+	.toggle > li > details {
+		padding-left: 1.7em;
+	}
+	
+	.toggle > li > details > summary {
+		margin-left: -1.1em;
+	}
+	
+	.selected-value {
+		display: inline-block;
+		padding: 0 0.5em;
+		background: rgba(206, 205, 202, 0.5);
+		border-radius: 3px;
+		margin-right: 0.5em;
+		margin-top: 0.3em;
+		margin-bottom: 0.3em;
+		white-space: nowrap;
+	}
+	
+	.collection-title {
+		display: inline-block;
+		margin-right: 1em;
+	}
+	
+	.page-description {
+		margin-bottom: 2em;
+	}
+	
+	.simple-table {
+		margin-top: 1em;
+		font-size: 0.875rem;
+		empty-cells: show;
+	}
+	.simple-table td {
+		height: 29px;
+		min-width: 120px;
+	}
+	
+	.simple-table th {
+		height: 29px;
+		min-width: 120px;
+	}
+	
+	.simple-table-header-color {
+		background: rgb(247, 246, 243);
+		color: black;
+	}
+	.simple-table-header {
+		font-weight: 500;
+	}
+	
+	time {
+		opacity: 0.5;
+	}
+	
+	.icon {
+		display: inline-block;
+		max-width: 1.2em;
+		max-height: 1.2em;
+		text-decoration: none;
+		vertical-align: text-bottom;
+		margin-right: 0.5em;
+	}
+	
+	img.icon {
+		border-radius: 3px;
+	}
+	
+	.user-icon {
+		width: 1.5em;
+		height: 1.5em;
+		border-radius: 100%;
+		margin-right: 0.5rem;
+	}
+	
+	.user-icon-inner {
+		font-size: 0.8em;
+	}
+	
+	.text-icon {
+		border: 1px solid #000;
+		text-align: center;
+	}
+	
+	.page-cover-image {
+		display: block;
+		object-fit: cover;
+		width: 100%;
+		max-height: 30vh;
+	}
+	
+	.page-header-icon {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+	}
+	
+	.page-header-icon-with-cover {
+		margin-top: -0.72em;
+		margin-left: 0.07em;
+	}
+	
+	.page-header-icon img {
+		border-radius: 3px;
+	}
+	
+	.link-to-page {
+		margin: 1em 0;
+		padding: 0;
+		border: none;
+		font-weight: 500;
+	}
+	
+	p > .user {
+		opacity: 0.5;
+	}
+	
+	td > .user,
+	td > time {
+		white-space: nowrap;
+	}
+	
+	input[type="checkbox"] {
+		transform: scale(1.5);
+		margin-right: 0.6em;
+		vertical-align: middle;
+	}
+	
+	p {
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+	}
+	
+	.image {
+		border: none;
+		margin: 1.5em 0;
+		padding: 0;
+		border-radius: 0;
+		text-align: center;
+	}
+	
+	.code,
+	code {
+		background: rgba(135, 131, 120, 0.15);
+		border-radius: 3px;
+		padding: 0.2em 0.4em;
+		border-radius: 3px;
+		font-size: 85%;
+		tab-size: 2;
+	}
+	
+	code {
+		color: #eb5757;
+	}
+	
+	.code {
+		padding: 1.5em 1em;
+	}
+	
+	.code-wrap {
+		white-space: pre-wrap;
+		word-break: break-all;
+	}
+	
+	.code > code {
+		background: none;
+		padding: 0;
+		font-size: 100%;
+		color: inherit;
+	}
+	
+	blockquote {
+		font-size: 1.25em;
+		margin: 1em 0;
+		padding-left: 1em;
+		border-left: 3px solid rgb(55, 53, 47);
+	}
+	
+	.bookmark {
+		text-decoration: none;
+		max-height: 8em;
+		padding: 0;
+		display: flex;
+		width: 100%;
+		align-items: stretch;
+	}
+	
+	.bookmark-title {
+		font-size: 0.85em;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		height: 1.75em;
+		white-space: nowrap;
+	}
+	
+	.bookmark-text {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.bookmark-info {
+		flex: 4 1 180px;
+		padding: 12px 14px 14px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	
+	.bookmark-image {
+		width: 33%;
+		flex: 1 1 180px;
+		display: block;
+		position: relative;
+		object-fit: cover;
+		border-radius: 1px;
+	}
+	
+	.bookmark-description {
+		color: rgba(55, 53, 47, 0.6);
+		font-size: 0.75em;
+		overflow: hidden;
+		max-height: 4.5em;
+		word-break: break-word;
+	}
+	
+	.bookmark-href {
+		font-size: 0.75em;
+		margin-top: 0.25em;
+	}
+	
+	.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+	.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+	.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+	.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+	.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+	.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+	.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+	.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+	.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+	.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+	.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+	.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+	.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+	.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+	.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+	.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+	.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+	.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+	.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+	.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+	.highlight-default {
+		color: rgba(55, 53, 47, 1);
+	}
+	.highlight-gray {
+		color: rgba(120, 119, 116, 1);
+		fill: rgba(120, 119, 116, 1);
+	}
+	.highlight-brown {
+		color: rgba(159, 107, 83, 1);
+		fill: rgba(159, 107, 83, 1);
+	}
+	.highlight-orange {
+		color: rgba(217, 115, 13, 1);
+		fill: rgba(217, 115, 13, 1);
+	}
+	.highlight-yellow {
+		color: rgba(203, 145, 47, 1);
+		fill: rgba(203, 145, 47, 1);
+	}
+	.highlight-teal {
+		color: rgba(68, 131, 97, 1);
+		fill: rgba(68, 131, 97, 1);
+	}
+	.highlight-blue {
+		color: rgba(51, 126, 169, 1);
+		fill: rgba(51, 126, 169, 1);
+	}
+	.highlight-purple {
+		color: rgba(144, 101, 176, 1);
+		fill: rgba(144, 101, 176, 1);
+	}
+	.highlight-pink {
+		color: rgba(193, 76, 138, 1);
+		fill: rgba(193, 76, 138, 1);
+	}
+	.highlight-red {
+		color: rgba(212, 76, 71, 1);
+		fill: rgba(212, 76, 71, 1);
+	}
+	.highlight-default_background {
+		color: rgba(55, 53, 47, 1);
+	}
+	.highlight-gray_background {
+		background: rgba(248, 248, 247, 1);
+	}
+	.highlight-brown_background {
+		background: rgba(244, 238, 238, 1);
+	}
+	.highlight-orange_background {
+		background: rgba(251, 236, 221, 1);
+	}
+	.highlight-yellow_background {
+		background: rgba(251, 243, 219, 1);
+	}
+	.highlight-teal_background {
+		background: rgba(237, 243, 236, 1);
+	}
+	.highlight-blue_background {
+		background: rgba(231, 243, 248, 1);
+	}
+	.highlight-purple_background {
+		background: rgba(248, 243, 252, 1);
+	}
+	.highlight-pink_background {
+		background: rgba(252, 241, 246, 1);
+	}
+	.highlight-red_background {
+		background: rgba(253, 235, 236, 1);
+	}
+	.block-color-default {
+		color: inherit;
+		fill: inherit;
+	}
+	.block-color-gray {
+		color: rgba(120, 119, 116, 1);
+		fill: rgba(120, 119, 116, 1);
+	}
+	.block-color-brown {
+		color: rgba(159, 107, 83, 1);
+		fill: rgba(159, 107, 83, 1);
+	}
+	.block-color-orange {
+		color: rgba(217, 115, 13, 1);
+		fill: rgba(217, 115, 13, 1);
+	}
+	.block-color-yellow {
+		color: rgba(203, 145, 47, 1);
+		fill: rgba(203, 145, 47, 1);
+	}
+	.block-color-teal {
+		color: rgba(68, 131, 97, 1);
+		fill: rgba(68, 131, 97, 1);
+	}
+	.block-color-blue {
+		color: rgba(51, 126, 169, 1);
+		fill: rgba(51, 126, 169, 1);
+	}
+	.block-color-purple {
+		color: rgba(144, 101, 176, 1);
+		fill: rgba(144, 101, 176, 1);
+	}
+	.block-color-pink {
+		color: rgba(193, 76, 138, 1);
+		fill: rgba(193, 76, 138, 1);
+	}
+	.block-color-red {
+		color: rgba(212, 76, 71, 1);
+		fill: rgba(212, 76, 71, 1);
+	}
+	.block-color-default_background {
+		color: inherit;
+		fill: inherit;
+	}
+	.block-color-gray_background {
+		background: rgba(248, 248, 247, 1);
+	}
+	.block-color-brown_background {
+		background: rgba(244, 238, 238, 1);
+	}
+	.block-color-orange_background {
+		background: rgba(251, 236, 221, 1);
+	}
+	.block-color-yellow_background {
+		background: rgba(251, 243, 219, 1);
+	}
+	.block-color-teal_background {
+		background: rgba(237, 243, 236, 1);
+	}
+	.block-color-blue_background {
+		background: rgba(231, 243, 248, 1);
+	}
+	.block-color-purple_background {
+		background: rgba(248, 243, 252, 1);
+	}
+	.block-color-pink_background {
+		background: rgba(252, 241, 246, 1);
+	}
+	.block-color-red_background {
+		background: rgba(253, 235, 236, 1);
+	}
+	.select-value-color-uiBlue { background-color: undefined; }
+	.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+	.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+	.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+	.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+	.select-value-color-transparentGray { background-color: undefined; }
+	.select-value-color-translucentGray { background-color: undefined; }
+	.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+	.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+	.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+	.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+	.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+	.select-value-color-pageGlass { background-color: undefined; }
+	.select-value-color-washGlass { background-color: undefined; }
+	
+	.checkbox {
+		display: inline-flex;
+		vertical-align: text-bottom;
+		width: 16;
+		height: 16;
+		background-size: 16px;
+		margin-left: 2px;
+		margin-right: 5px;
+	}
+	
+	.checkbox-on {
+		background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+	}
+	
+	.checkbox-off {
+		background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+	}
+		
+	</style></head><body><article id="55578043-95e9-4fb4-8516-5441f64ebcfd" class="page serif"><header><div class="page-header-icon undefined"><span class="icon">🧾</span></div><h1 class="page-title">5.1 Методика тестирования и результаты</h1><p class="page-description"></p></header><div class="page-body"><h3 id="1cb9b9cb-f62f-8001-a88f-f3595d0cf753" class="">🎯 Цели тестирования</h3><p id="1cb9b9cb-f62f-80f1-a9ec-e5bb09f91b9a" class="">Тестирование справочной информационной системы (СИС) направлено на:</p><p id="1cb9b9cb-f62f-8091-9515-f71fa4d4a422" class="">✅ Проверку функциональности всех модулей системы.</p><p id="1cb9b9cb-f62f-8048-b619-f1b356b36b6f" class="">✅ Оценку удобства интерфейса и пользовательского опыта.</p><p id="1cb9b9cb-f62f-800f-a20f-d7600c071036" class="">✅ Обнаружение и устранение ошибок в коде.</p><p id="1cb9b9cb-f62f-8087-b56c-eb9eca50e9db" class="">✅ Анализ производительности и нагрузки.</p><p id="1cb9b9cb-f62f-806e-a9a5-d0d85fbfa667" class="">✅ Проверку безопасности и устойчивости к угрозам.</p><h3 id="1cb9b9cb-f62f-80ab-b1bd-f194fbfa79f9" class="">🧾 Виды тестирования</h3><p id="1cb9b9cb-f62f-802b-8829-ebae21020e3f" class="">📌 <strong>Функциональное тестирование</strong></p><ul id="1cb9b9cb-f62f-8002-bec7-f163ab9b207d" class="bulleted-list"><li style="list-style-type:disc">Проверка работы основных функций (поиск, навигация, доступ к справочным материалам).</li></ul><ul id="1cb9b9cb-f62f-80c6-9743-caaa620d3b80" class="bulleted-list"><li style="list-style-type:disc">Тестирование интеграции с системой документооборота.</li></ul><ul id="1cb9b9cb-f62f-8003-a57b-ded03bd5ca89" class="bulleted-list"><li style="list-style-type:disc">Оценка корректности отображения информации на разных устройствах.</li></ul><p id="1cb9b9cb-f62f-80f9-a43b-c5c0a6611b92" class="">📌 <strong>Юзабилити-тестирование</strong></p><ul id="1cb9b9cb-f62f-8016-83df-cc50830fb702" class="bulleted-list"><li style="list-style-type:disc">Опрос пользователей, анализ удобства интерфейса.</li></ul><ul id="1cb9b9cb-f62f-80bf-be12-d6962d64c347" class="bulleted-list"><li style="list-style-type:disc">Тестирование удобства навигации и поиска информации.</li></ul><ul id="1cb9b9cb-f62f-8088-8422-e9a08010e777" class="bulleted-list"><li style="list-style-type:disc">Проверка доступности системы для пользователей с разными уровнями подготовки.</li></ul><p id="1cb9b9cb-f62f-807e-942d-dd6c012ef406" class="">📌 <strong>Нагрузочное тестирование</strong></p><ul id="1cb9b9cb-f62f-8004-9fdd-e828345495c0" class="bulleted-list"><li style="list-style-type:disc">Оценка быстродействия системы при увеличении количества пользователей.</li></ul><ul id="1cb9b9cb-f62f-8004-9adb-deb95e99fd60" class="bulleted-list"><li style="list-style-type:disc">Анализ работы базы данных под высокой нагрузкой.</li></ul><ul id="1cb9b9cb-f62f-80d1-8a50-dfb506077e71" class="bulleted-list"><li style="list-style-type:disc">Тестирование отказоустойчивости при резких скачках нагрузки.</li></ul><p id="1cb9b9cb-f62f-80c5-8c57-e6798f0d9455" class="">📌 <strong>Безопасностное тестирование</strong></p><ul id="1cb9b9cb-f62f-8045-a42f-c19d542e24c5" class="bulleted-list"><li style="list-style-type:disc">Проверка механизма аутентификации и авторизации.</li></ul><ul id="1cb9b9cb-f62f-8028-9054-f67955154b97" class="bulleted-list"><li style="list-style-type:disc">Имитация атак (SQL-инъекции, XSS, CSRF).</li></ul><ul id="1cb9b9cb-f62f-8008-baf8-fce655b9a22d" class="bulleted-list"><li style="list-style-type:disc">Тестирование защиты данных при передаче и хранении.</li></ul><h3 id="1cb9b9cb-f62f-8074-abcb-c1b331c5bb03" class="">📊 Результаты тестирования</h3><p id="1cb9b9cb-f62f-80e7-b18c-e54d2ee87f81" class="">После проведения тестирования были получены следующие результаты:</p><p id="1cb9b9cb-f62f-808b-9640-df89e0cba452" class="">🔹 <strong>Функциональность</strong> – система корректно выполняет основные задачи, интеграция с документооборотом работает без сбоев.</p><p id="1cb9b9cb-f62f-80b8-bcee-dfcb3974ec04" class="">🔹 <strong>Юзабилити</strong> – 85% пользователей отметили удобство поиска и навигации, но выявлены рекомендации по улучшению отображения справочных материалов.</p><p id="1cb9b9cb-f62f-8009-996e-c8ced9550354" class="">🔹 <strong>Производительность</strong> – система выдерживает нагрузку до 500 одновременных пользователей без снижения скорости работы.</p><p id="1cb9b9cb-f62f-80c6-bdc2-ec3ec50b319a" class="">🔹 <strong>Безопасность</strong> – успешно пройдены тесты на устойчивость к атакам, но рекомендовано усилить механизм логирования событий безопасности.</p><p id="1cb9b9cb-f62f-8024-989b-e075f74a8226" class="">На основе тестирования были внесены исправления и доработки, что позволило повысить надежность и удобство системы перед её внедрением.</p><div id="1719b9cb-f62f-80d8-833e-fde745b9dc31" class="column-list"><div id="1719b9cb-f62f-80c4-b79f-ce8249e15bca" style="width:50%" class="column"><p id="1719b9cb-f62f-8030-850a-dccc69f32424" class=""><a href="{% url '4_2' %}"><span class="icon">⚡</span>4.2 Обеспечение безопасности данных в облачной среде</a> </p></div><div id="1719b9cb-f62f-802b-8220-de6b6079944c" style="width:50%" class="column"><p id="1719b9cb-f62f-8030-8ce6-ede42f3c4418" class=""><a href="{% url '5_2' %}"><span class="icon">📈</span>5.2 Внедрение и оценка эффективности</a> </p></div></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
 {% endblock %}

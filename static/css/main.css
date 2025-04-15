@@ -43,6 +43,9 @@ ul li::marker {
 	display: flex;
 	align-items: center;
 }
+.navbar-nav li::marker {
+	display: none; /* Скрывает маркеры */
+}
 
 .navbar-nav .nav-item {
 	margin-right: 10px;
